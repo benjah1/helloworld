@@ -1,10 +1,12 @@
 'use strict';
 
-window.module = function() {
+module.exports = function() {
 
+	console.log('hiii');
 	var Singleton = (function() {
 		var _instance;
 
+	console.log('hiii');
 		return function(obj) {
 			if ('undefined' !== typeof _instance) {
 				_instance.set(obj);
@@ -25,6 +27,8 @@ window.module = function() {
 			return _instance;
 		};
 	})();
+
+	console.log(Singleton);
 
 	return Singleton;
 };
