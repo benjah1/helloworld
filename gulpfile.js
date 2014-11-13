@@ -9,7 +9,10 @@ gulp.task('scripts', function () {
 	return gulp.src('js/*.js')
 		.pipe($.jshint())
 		.pipe($.jshint.reporter(require('jshint-stylish')))
-		.pipe($.size());
+		.pipe($.browserify({
+			insertGlobals : true,
+			debug : !gulp.env.production
+		}))
 });
 
 gulp.task('watch', function () {
