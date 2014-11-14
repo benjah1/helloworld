@@ -6,7 +6,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('scripts', function () {
-	return gulp.src('js/**/*.js')
+	return gulp.src('js/**/*.js', {base: '.'})
 		.pipe($.jshint())
 		.pipe($.jshint.reporter(require('jshint-stylish')))
 		.pipe($.browserify({
@@ -17,9 +17,8 @@ gulp.task('scripts', function () {
 
 gulp.task('buildTest', ['scripts'], function() {
 	return gulp.src([
-		'js/**/*.js',
 		'test/js/**/*.js'
-	])
+	], {base: '.'})
 		.pipe($.browserify({
 			debug: true
 		}))
@@ -30,7 +29,7 @@ gulp.task('buildTest', ['scripts'], function() {
 gulp.task('test', ['buildTest'], function() {
 	return gulp.src([
 		'.tmp/*.js'
-	])
+	], {base: '.'})
 		.pipe($.karma({
 			configFile: 'karma.conf.js',
 			action: 'run'
