@@ -1,23 +1,24 @@
 'use strict';
 
-module.exports = function() {
+module.exports = (function() {
 
-	console.log('hiii');
 	var Singleton = (function() {
-		var _instance;
+		var _instance, _obj;
 
-	console.log('hiii');
 		return function(obj) {
 			if ('undefined' !== typeof _instance) {
-				_instance.set(obj);
+				if ('undefined' !== typeof obj) {
+					_instance.set(obj);
+				}
 				return _instance;
 			}
-
-			var _obj = obj;
-
+			if ('undefined' !== typeof obj) {
+				_obj = obj;
+			}
+			
 			_instance = {
-				get: function() {
-					return obj;
+				get: function() { 
+					return _obj;
 				},
 				set: function(obj) {
 					_obj = obj;
@@ -28,7 +29,5 @@ module.exports = function() {
 		};
 	})();
 
-	console.log(Singleton);
-
 	return Singleton;
-};
+})();

@@ -1,15 +1,17 @@
 
 describe("Test singleton", function() {	
 
-	var Singleton = require('../../js/singleton');
-
-console.log('aaaa');
-console.log(Singleton.toSource());
+	var Singleton = require('../js/singleton.js');
 
 	it('only one instance', function() {
-	//	var a = new Singleton(1);
-var a = 1;
-		expect(a).to.be.equal(1); 
+		var a = new Singleton(1);
+		expect(a.get()).to.be.equal(1); 
+
+		a.set(2);
+		expect(a.get()).to.be.equal(2); 
+
+		var b = new Singleton();
+		expect(b.get()).to.be.equal(2); 
 	});
 
 });
