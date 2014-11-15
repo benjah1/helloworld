@@ -28,7 +28,7 @@ gulp.task('buildTest', ['scripts'], function() {
 
 gulp.task('test', ['buildTest'], function() {
 	return gulp.src([
-		'.tmp/*.js'
+		'.tmp/**/*.js'
 	], {base: '.'})
 		.pipe($.karma({
 			configFile: 'karma.conf.js',
