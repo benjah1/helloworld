@@ -9,10 +9,10 @@ gulp.task('scripts', function () {
 	return gulp.src('js/**/*.js', {base: '.'})
 		.pipe($.jshint())
 		.pipe($.jshint.reporter(require('jshint-stylish')))
-		.pipe($.browserify({
-			insertGlobals: true,
-			debug: true
-		}))
+		// .pipe($.browserify({
+		// 	insertGlobals: true,
+		// 	debug: true
+		// }))
 });
 
 gulp.task('buildTest', ['scripts'], function() {
