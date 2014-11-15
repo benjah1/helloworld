@@ -3,28 +3,51 @@
 describe('Test extendable', function() {
 	var extend = require('../../js/utility/extendable.js');
 
-		it('only one instance', function() {
-			var a = {
-				number: 1,
-				bool: true,
-				magic: 'real',
-				animal: 'whale',
-				croutons: 'delicious'
+		it('one extend', function() {
+			var A = function() {
+				this.number = 1;
+				this.bool = true;
+				this.magic = 'real';
+				this.animal = 'whale';
+				this.croutons = 'delicious';
 			};
 
-			var b = extend({
-				number: 2,
-				magic: 'real',
-				animal: 'porpoise',
-				bool: false,
-				random: 42
-			}, a);
+			var B = extend(function() {
+				this.number = 2;
+				this.magic = 'real';
+				this.animal = 'porpoise';
+				this.bool = false;
+				this.random = 42;
+			}, A);
 
-			expect(b.number).to.be.equal(2);
-			expect(b.magic).to.be.equal('real');
-			expect(b.animal).to.be.equal('porpoise');
-			expect(b.bool).to.be.equal(false);
-			expect(b.random).to.be.equal(42);
-			expect(b.croutons).to.be.equal('delicious');
+			var ob = new B();
+			expect(ob.number).to.be.equal(2);
+			expect(ob.magic).to.be.equal('real');
+			expect(ob.animal).to.be.equal('porpoise');
+			expect(ob.bool).to.be.equal(false);
+			expect(ob.random).to.be.equal(42);
+			expect(ob.croutons).to.be.equal('delicious');
 	});
+
+	it('multi extend', function() {
+		var A = function() {
+			this.a = 'aa';
+			this.c = 'ac';
+		};
+
+		var B = extend(function() {
+			this.b = 'bb';
+			this.c = 'bc';
+		}, A);
+
+		var C = extend(function() {
+			this.c = 'cc';
+		}, B);
+
+		var oc = new C();
+		expect(oc.a).to.be.equal('aa');
+		expect(oc.b).to.be.equal('bb');
+		expect(oc.c).to.be.equal('cc');
+	});
+	
 });

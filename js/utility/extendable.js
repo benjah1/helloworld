@@ -7,30 +7,40 @@ module.exports = (function() {
 	supports.objectKeys = !!Object.keys;
 	supports.arrayProtoMap = !!Array.prototype.map;
 
-	if ( supports.objectCreate && supports.objectKeys && supports.arrayProtoMap ) {
-		extend = function(target, source) {
-	    var extended = Object.create(source);
-	    Object.keys(target).map(function (prop) {
-	       extended[prop] = target[prop];
-	    });
-	    return extended;
+	if ( supports.objectCreate && supports.objectKeys && supports.arrayProtoMap) {
+		extend = function(Target, Source) {
+			var create = function() {
+
+				var extended = new Source(), 
+					targeted = new Target();
+		    Object.keys(targeted).map(function (prop) {
+		       extended[prop] = targeted[prop];
+		    });
+	    	return extended;
+		  };
+	    return create;
 	  };
 
 	} else {
-		extend = function(target, source) {
-			var extended = {};
-	    var prop;
-	    for (prop in source) {
-        if (Object.prototype.hasOwnProperty.call(source, prop)) {
-            extended[prop] = source[prop];
-        }
-	    }
-	    for (prop in target) {
-	        if (Object.prototype.hasOwnProperty.call(target, prop)) {
-	            extended[prop] = target[prop];
+		extend = function(Target, Source) {
+			var create = function() {
+				var extended = {}, 
+					sourced = new Source(), 
+					targeted = new Target(),
+			    prop;
+		    for (prop in sourced) {
+	        if (Object.prototype.hasOwnProperty.call(sourced, prop)) {
+	            extended[prop] = sourced[prop];
 	        }
-	    }
-	    return extended;
+		    }
+		    for (prop in targeted) {
+		        if (Object.prototype.hasOwnProperty.call(targeted, prop)) {
+		            extended[prop] = targeted[prop];
+		        }
+		    }
+		    return extended;
+		  };
+	    return create;
 	  };
 	}
 
