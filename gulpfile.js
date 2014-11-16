@@ -44,3 +44,5 @@ gulp.task('jsClean', function () {
 gulp.task('watch', function () {
 	 gulp.watch(['test/js/**/*.js','js/**/*.js'], ['jsTest']);
 });
+
+gulp.task('ci', ['jsTest']);

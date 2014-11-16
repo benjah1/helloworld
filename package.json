@@ -20,8 +20,8 @@
     "karma-browserify": "^1.0.0",
     "glob": "^4.0.6",
     "gulp-useref": "^1.0.2",
-    "gulp-rimraf": "~0.1.1"
-
+    "gulp-rimraf": "~0.1.1",
+    "karma-coverage": "~0.2.6"
   },
   "engines": {
     "node": ">=0.10.0"
