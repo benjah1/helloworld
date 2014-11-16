@@ -5,7 +5,7 @@ var gulp = require('gulp');
 // load plugins
 var $ = require('gulp-load-plugins')();
 
-gulp.task('scripts', function () {
+gulp.task('jslint', function () {
 	return gulp.src('js/**/*.js', {base: '.'})
 		.pipe($.jshint())
 		.pipe($.jshint.reporter(require('jshint-stylish')))
@@ -15,18 +15,18 @@ gulp.task('scripts', function () {
 		// }))
 });
 
-gulp.task('buildTest', ['scripts'], function() {
+gulp.task('jsBuildTest', ['jslint', 'jsClean'], function() {
 	return gulp.src([
 		'test/js/**/*.js'
 	], {base: '.'})
 		.pipe($.browserify({
 			debug: true
 		}))
- 		.pipe(gulp.dest('.tmp'))
+ 		.pipe(gulp.dest('./.tmp'))
 
 });
 
-gulp.task('test', ['buildTest'], function() {
+gulp.task('jsTest', ['jsBuildTest'], function() {
 	return gulp.src([
 		'.tmp/**/*.js'
 	], {base: '.'})
@@ -36,23 +36,11 @@ gulp.task('test', ['buildTest'], function() {
 		}));
 });
 
-
-
-// gulp.task('test', function() {
-//     return gulp.src(['js/**/*.js','test/js/**/*.js'])
-// 		.pipe($.browserify({
-// 			insertGlobals: true,
-// 			debug: true
-// 		}))
-// 		.pipe($.useref())
-// 		.pipe(gulp.dest('.tmp/js/test.js'))
-// 		.pipe($.karma({
-// 			configFile: 'karma.conf.js',
-// 			action: 'run'
-// 		}));
-// });
+gulp.task('jsClean', function () {
+  return gulp.src('./.tmp', { read: false })
+    .pipe($.rimraf());
+});
 
 gulp.task('watch', function () {
-	 gulp.watch('js/**/*.js', ['scripts']);
-	 gulp.watch(['test/js/**/*.js','js/**/*.js'], ['test']);
+	 gulp.watch(['test/js/**/*.js','js/**/*.js'], ['jsTest']);
 });
