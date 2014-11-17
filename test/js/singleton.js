@@ -6,27 +6,28 @@ describe('Test singleton', function() {
 
 	it('only one instance', function() {
 		var a = new Singleton(1);
-		expect(a.get()).to.be.equal(1); 
+		assert.strictEqual(a.get(), 1); 
 
 		a.set(2);
-		expect(a.get()).to.be.equal(2); 
+		assert.strictEqual(a.get(), 2); 
 
 		var b = new Singleton();
-		expect(b.get()).to.be.equal(2); 
+		assert.strictEqual(b.get(), 2);
+		assert.strictEqual(a.get(), 2); 
 	});
 
 	it('even cross scope', function() {
 		var c = new Singleton();
-		expect(c.get()).to.be.equal(2); 
+		assert.strictEqual(c.get(), 2); 
 	});
 
-	it('or in another perspective', function() {
+	it('init set', function() {
 		var d = new Singleton();
-		expect(d.get()).to.be.equal(2); 
+		assert.strictEqual(d.get(), 2);
 
-		var e = new Singleton();
-		e.set(3);
-		expect(d.get()).to.be.equal(3);
+		var e = new Singleton(3);
+		assert.strictEqual(e.get(), 3);
+		assert.strictEqual(d.get(), 3);
 	});
 
 });
