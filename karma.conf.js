@@ -5,18 +5,18 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: './',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha','chai'],
+    frameworks: ['commonjs','mocha','chai'],
 
 
     // list of files / patterns to load in the browser
     files: [
-        // 'js/**/*.js',
-        // 'test/js/**/*.js'
+        'js/**/*.js',
+        'test/js/**/*.js'
     ],
 
 
@@ -28,16 +28,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        // 'js/**/*.js': ['coverage', 'browserify']
-        // 'test/js/*.js': ['browserify']
-        '.tmp/**/*.js': ['coverage']
+        'js/**/*.js': ['coverage', 'commonjs'],
+        'test/js/**/*.js': ['commonjs']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress','coverage'],
+    reporters: ['progress','coverage','coveralls'],
 
 
     // web server port
@@ -68,10 +67,10 @@ module.exports = function(config) {
 
     coverageReporter: {
         reporters: [
-            { type: 'html', dir: 'coverage' },
-            { type: 'lcovonly', dir: 'coverage' },
-            { type: 'json', dir: 'coverage' },
-            { type: 'cobertura', dir: 'coverage' }
+            { type: 'html', dir: 'coverage/js' },
+            { type: 'lcovonly', dir: 'coverage/js' },
+            { type: 'json', dir: 'coverage/js' },
+            { type: 'cobertura', dir: 'coverage/js' }
         ]
     }
 
