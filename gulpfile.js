@@ -33,4 +33,8 @@ gulp.task('watch', function () {
 	 gulp.watch(['test/js/**/*.js','js/**/*.js'], ['jsTest']);
 });
 
-gulp.task('ci', ['jsTest']);
+gulp.task('ci', ['jsTest'], function() {
+	var coveralls = require('gulp-coveralls');
+	gulp.src('coverage/**/lcov.info')
+	  .pipe(coveralls());
+});
