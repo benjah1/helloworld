@@ -10,9 +10,22 @@ module.exports = (function() {
 	if ( supports.objectCreate && supports.objectKeys && supports.arrayProtoMap) {
 		extend = function(Target, Source) {
 			var create = function() {
+				var constructorArgs = arguments;
 				var extended = {}, 
-					sourced = new Source(), 
-					targeted = new Target();
+					sourced = (function(O) {
+				    function F(args) {
+			        return O.apply(this, args);
+				    }
+				    F.prototype = O.prototype;
+				    return new F(constructorArgs);
+					})(Source),
+					targeted = (function(O) {
+				    function F(args) {
+			        return O.apply(this, args);
+				    }
+				    F.prototype = O.prototype;
+				    return new F(constructorArgs);
+					})(Target);
 		    Object.keys(sourced).map(function (prop) {
 		       extended[prop] = sourced[prop];
 		    });
@@ -30,9 +43,22 @@ module.exports = (function() {
 	} else {
 		extend = function(Target, Source) {
 			var create = function() {
+				var constructorArgs = arguments;
 				var extended = {}, 
-					sourced = new Source(), 
-					targeted = new Target(),
+					sourced = (function(O) {
+				    function F(args) {
+			        return O.apply(this, args);
+				    }
+				    F.prototype = O.prototype;
+				    return new F(constructorArgs);
+					})(Source),
+					targeted = (function(O) {
+				    function F(args) {
+			        return O.apply(this, args);
+				    }
+				    F.prototype = O.prototype;
+				    return new F(constructorArgs);
+					})(Target),
 			    prop;
 		    for (prop in sourced) {
 	        if (Object.prototype.hasOwnProperty.call(sourced, prop)) {
