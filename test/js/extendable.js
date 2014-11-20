@@ -78,4 +78,17 @@ describe('Test extendable', function() {
 		assert.strictEqual(ob.run(), 'Hello World');
 	});
 
+	it('parent\'s this', function() {
+		var A = function() {
+			this.i = 'A';
+			this.run = function() {
+				return this.i;
+			};
+		}, B = extend(function() {
+			this.i = 'B';
+		}, A);
+
+		var b = new B();
+		assert.strictEqual(b.run(), 'B');
+	});
 });
